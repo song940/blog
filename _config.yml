@@ -1,0 +1,27 @@
+# Site settings
+title       : Liu Song's Blog
+author      : Lsong
+email       : blog@lsong.org
+description : Open Source Software & Hardware
+url         : http://blog.lsong.org
+permalink   : /:year/:month/:title.html
+icon        : /img/rocket.png
+# disqus shortname
+disqus      : lsong
+# Build settings
+analytics   : 'UA-42621148-5'
+# Social Network
+github      : 'song940'
+twitter     : 'song940'
+facebook    : 'song940'
+google      : '+LiusongLsong'
+
+# Podcasts
+# http://podba.se/validate
+explicit: "no"
+# http://itunespartner.apple.com/podcasts/overview#_Toc526931698
+category:
+  Technology:
+    - Software How-To
+    - Tech News
+    - Gadgets

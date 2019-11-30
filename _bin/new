@@ -1,0 +1,14 @@
+#!/bin/bash
+
+POST="_posts"
+DATE=`date +"%Y-%m-%d"`
+NAME=`echo $@ | tr '[:upper:]' '[:lower:]' | sed -e "s/ /-/g" `
+
+cat > $POST/$DATE-$NAME.markdown << EOF
+---
+layout: post
+title: "$@"
+---
+EOF
+
+echo "created post: $POST/$DATE-$NAME.markdown"

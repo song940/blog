@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<div class="post">
+  <header class="post-header">
+    <h2>{{ page.title }}</h2>
+    <p class="meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+  </header>
+  <article class="post-content">
+  {{ content }}
+  </article>
+  <footer class="post-footer">
+    <div class="license">
+      <p>This file is licensed under a <a href="#">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a> license.</p>
+      <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="" />
+    </div>
+  </footer>
+</div>
+<div class="comments" >
+  {% include comments.html %}
+</div>

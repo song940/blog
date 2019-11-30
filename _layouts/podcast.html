@@ -1,0 +1,20 @@
+---
+layout: post
+---
+<link rel="stylesheet" href="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<div>
+  <div id="aplayer" class="player"></div>
+  <div>{{ content }}</div>
+</div>
+<script>
+  const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    audio: [{
+      name: "{{ page.title }}",
+      artist: "{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}",
+      url: '{{ page.file }}',
+      cover: "{% if page.image %}{{ page.image }}{% else %}{{ site.icon }}{% endif %}"
+    }]
+  });
+</script>

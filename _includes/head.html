@@ -1,0 +1,22 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <meta name="author" content="{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}" />
+  <meta name="description" content="{{ site.description }}">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="none" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@song940" />
+  <meta name="twitter:creator" content="@song940" />
+
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
+  <meta property="og:description" content="{{ site.description }}" />
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ '/feed.xml' | prepend: site.url }}"/>
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" >
+  <link rel="stylesheet" href="{{ "/css/stylesheet.css" | prepend: site.baseurl }}" >
+</head>

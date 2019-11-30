@@ -1,0 +1,96 @@
+---
+title: rss
+description: RSS Reader
+spec: https://github.com/simplepie/simplepie-ng/wiki/Spec:-iTunes-Podcast-RSS
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:wfw="http://wellformedweb.org/CommentAPI/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:slash="http://purl.org/rss/1.0/modules/slash/" 
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" 
+  xmlns:rawvoice="http://www.rawvoice.com/rawvoiceRssModule/">
+  <channel>
+    <title>{{ site.title }}</title>
+    <link>{{ site.url }}</link>
+    <description>{{ site.description | strip_html | escape }}</description>
+    <language>en-US</language>
+    <generator>http://jekyllrb.com</generator>
+    <managingEditor>{{ site.email }} ({{ site.author }})</managingEditor>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <sy:updatePeriod>hourly</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <atom:link href="{{ page.url | absolute_url }}" rel="self" type="application/rss+xml" />
+    <image>
+      <title>{{ site.title }}</title>
+      <url>{{ site.icon | absolute_url }}</url>
+      <link>{{ site.url }}</link>
+    </image>
+    <itunes:summary>{{ site.description | strip_html | escape }}</itunes:summary>
+    <itunes:subtitle>{{ site.description | strip_html | escape }}</itunes:subtitle>
+    <itunes:author>{{ site.author }}</itunes:author>
+    <itunes:explicit>{{ site.explicit }}</itunes:explicit>
+    <itunes:image href="{{ site.icon | absolute_url }}" />
+    <itunes:owner>
+      <itunes:name>{{ site.author }}</itunes:name>
+      <itunes:email>{{ site.email }}</itunes:email>
+    </itunes:owner>
+    {% for category in site.category %}
+    <itunes:category text="{{ category[0] }}" >
+    {% for subcategory in category[1] %}
+      <itunes:category text="{{ subcategory }}" />
+    {% endfor %}
+    </itunes:category>
+    {% endfor %}
+    {% for post in site.posts %}
+    <item>
+      <title>{{ post.title }}</title>
+      <link>{{ post.url | absolute_url }}</link>
+      <comments>{{ post.url | absolute_url }}#comments</comments>
+      <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+      <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
+      <dc:creator>{% if post.author %}{{ post.author }}{% else %}{{ site.author }}{% endif %}</dc:creator>
+    {% for category in post.categories %}
+      <category>{{category}}</category>
+    {% endfor %}
+      <description>
+      {% if post.description %}
+      {{ post.description | strip_html }}
+      {% else %}
+      {{ post.content | strip_html | truncatewords: 20 | escape }}
+      {% endif %}
+      </description>
+      <content:encoded>
+        <![CDATA[{{ post.content | expand_urls: site.url | cdata_escape }}]]>
+      </content:encoded>
+      {% if post.categories contains "podcast" %}
+      <itunes:subtitle>
+      {% if post.description %}
+      {{ post.description | strip_html }}
+      {% else %}
+      {{ post.content | strip_html | truncatewords: 20 | escape }}
+      {% endif %}
+      </itunes:subtitle>
+      <itunes:summary>
+      <![CDATA[
+      {% if post.summary %}
+      {{ post.summary | cdata_escape }}
+      {% else %}
+      {{ post.content | truncatewords: 20 | cdata_escape }}
+      {% endif %}]]>
+      </itunes:summary>
+      <itunes:author>{% if post.author %}{{ post.author }}{% else %}{{ site.author }}{% endif %}</itunes:author>
+      <itunes:image href="{{ site.url }}{% if post.image %}{{ post.image }}{% else %}{{ site.icon }}{% endif %}" />
+      <itunes:explicit>{% if post.explicit %}{{ post.explicit }}{% else %}{{ site.explicit }}{% endif %}</itunes:explicit>
+      <itunes:duration>{{ post.duration }}</itunes:duration>
+      {% if post.file %}
+      <enclosure url="{{ site.url }}{{ post.file }}" length="{{ post.size }}" type="{% if post.media_type %}{{post.media_type }}{% else %}audio/mpeg{% endif %}" />
+      {% endif %}
+      {% endif %}
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

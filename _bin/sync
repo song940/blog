@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+BLOG_DIR=/var/www/lsong.org/blog
+
+ssh lsong.org "rm -rf $BLOG_DIR/*"
+scp -r _site/* lsong.org:$BLOG_DIR
