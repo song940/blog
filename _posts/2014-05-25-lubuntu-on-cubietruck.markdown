@@ -50,7 +50,7 @@ You need this in advance:
 
 #### Get the software
 
-Download and install the LiveSuit NAND installer in your app folder: [LiveSuit_ForMac.zip](http://ubuntuone.com/7GLnElgM41yoGLZfRKxXzk)
+Download and install the LiveSuit NAND installer in your app folder: [Live Suit](http://dl.cubieboard.org/software/tools/livesuit/)
 
 Download the latest Lubuntu NAND image for Cubietruck: [Cubietruck Lubuntu Desktop Releases](http://docs.cubieboard.org/tutorials/a20-cubietruck_lubuntu_desktop_releases) or [A20-Cubietruck Lubuntu Server Releases](http://docs.cubieboard.org/tutorials/a20-cubietruck_lubuntu_server_releases)
 
@@ -92,6 +92,7 @@ Use `p` (print partition of a drive), `d` deletea partition or `n` (create new p
 Format the partition for rootfs with `EXT4` filesystem:
 
 	# mkfs.ext4 /dev/sda1
+	# mount /dev/sda1 /data
 
 Copying Rootfs
 
@@ -194,15 +195,15 @@ To be defined ….
 
 Download the flashplayerarm,type:
 
-	$tar zxvf flashplayerarm.tar.gz  
-	$sudo cp libpepflashplayer.so /usr/lib/chromium-browser/plugins
-	$sudo cp default /etc/chromium-browser
+	$ tar zxvf flashplayerarm.tar.gz  
+	$ sudo cp libpepflashplayer.so /usr/lib/chromium-browser/plugins
+	$ sudo cp default /etc/chromium-browser
 
 ### Wi-Fi
 
 CB1 and CB2 do not integraed wifi chip on board ,but we can use USB WIFI. Make sure the wifi driver you use have been loaded. If not ,use
 
-	$insmod /lib/modules/3.4.XX/kernel/drivers/net/wireless/XXX.ko
+	$ insmod /lib/modules/3.4.XX/kernel/drivers/net/wireless/XXX.ko
 
 CB3(cubietruck) has Integrated wifi chip .
 
@@ -210,23 +211,24 @@ Type : `modprobe bcmdhd` to load the driver .
 
 Add `bcmdhd` at the end of file `/etc/modules` to activate WiFi during boot. For example with Lubuntu Desktop:
 
-	#echo bcmdhd >> /etc/modules
+	# echo bcmdhd >> /etc/modules
 
 
 Reboot the cubieboard .
 
-	#apt-get install linux-firmware
-	#reboot
+	# apt-get install linux-firmware
+	# reboot
 
 Configure wifi at cubieboards and cubietruck the same way as descibed her:
 
-	$ifconfig wlan0 up   //open the wifi ,maybe wlan1 ..
-	$iwlist wlan0 scan   //scan the wifi signal
-	$wpa_passphrase SSID passwd >> /etc/wpa_supplicant.conf  // the SSid is name of signal want to be used
+	$ ifconfig wlan0 up   // open the wifi ,maybe wlan1 ..
+	$ iwlist wlan0 scan   // scan the wifi signal
+	$ apt-get install wpasupplicant
+	$ wpa_passphrase SSID passwd >> /etc/wpa_supplicant.conf  // the SSid is name of signal want to be used
 
 Add below configuration to `/etc/network/interfaces`
 
-	$vim /etc/network/interfaces
+	$ vim /etc/network/interfaces
 
 	auto wlan0
 	iface wlan0 inet dhcp
@@ -238,9 +240,9 @@ Add below configuration to `/etc/resolv.conf`
 
 Restart `networking` service,auto gain the IP.
 
-	$sudo /etc/init.d/networking restart
+	$ sudo /etc/init.d/networking restart
 
-	$ifconfig
+	$ ifconfig
 
 	wlan0     Link encap:Ethernet  HWaddr 98:3b:16:1e:65:62
 	          inet addr:192.168.1.111  Bcast:255.255.255.255  Mask:255.255.255.0
@@ -406,13 +408,13 @@ The tutorial how to use TTL cable: <http://linux-sunxi.org/Cubieboard/TTL>
 
 Install the tool name minicom in your computer:
 
-	$sudo apt-get install minicom
+	$ sudo apt-get install minicom
 
 Set the minicom configuratiaon, TTL and cubieboard are connected ,then minicomin the terminal ,enter into the console.
 
 Installing target Toolchains
 
-	$sudo apt-get install vim build-essential git libusb-1.0-0-dev pkg-config -y
+	$ sudo apt-get install vim build-essential git libusb-1.0-0-dev pkg-config -y
 
 
 ### Hardware Testing
@@ -425,15 +427,15 @@ These are blue LED1 meaning heartbeat and green LED2 on cb1 and cb2. LED1 - GPIO
 These are LED1~4 on cb3(cubietruck). LED1 - PH21, LED2 - PH20,LED3 - PH11,LED4 - PH07.Refer to [FAQ about cubietruck](http://docs.cubieboard.org/faq/faqs)
 For cb1 and cb2:
 
-	$echo 1 > /sys/class/gpio/export   //open the PH20
-	$echo 2 > /sys/class/gpio/export   //open the PH21
+	$ echo 1 > /sys/class/gpio/export   //open the PH20
+	$ echo 2 > /sys/class/gpio/export   //open the PH21
 
 The directories `/sys/class/gpio/gpio1_PH20` and `/sys/class/gpio/gpio2_PH21` had been create .
 
-	$cd /sys/class/gpio/gpio1_PH20
-	$echo out > direction    //set PH20 as output
-	$echo 1 > value          //set PH20 as high ,grenn LED is light
-	$echo 0 > value          //set PH20 as low,turn off the LED
+	$ cd /sys/class/gpio/gpio1_PH20
+	$ echo out > direction    //set PH20 as output
+	$ echo 1 > value          //set PH20 as high ,grenn LED is light
+	$ echo 0 > value          //set PH20 as low,turn off the LED
 
 Turn off led.
 
@@ -444,14 +446,14 @@ Turn off led.
 It would be best way connect the HDMI cable before power on the cubieboard,becuse some cable maybe appear the promble of sequence in time.
 If your have not full screen display, you can try the following commands
 
-	$fbset -left 10
+	$ fbset -left 10
 
 1.If you are using lubuntu, try the following commands
 
-	$wget http://dl.cubieboard.org/software/tools/armhf/cb-display-tool
-	$chmod 777 cb-display-tool
-	$cb-display-tool -o 8 -m 11  //switch to VGA type
-	$cb-display-tool -o 4 -m 4  //switch to HDMI type
+	$ wget http://dl.cubieboard.org/software/tools/armhf/cb-display-tool
+	$ chmod 777 cb-display-tool
+	$ cb-display-tool -o 8 -m 11  //switch to VGA type
+	$ cb-display-tool -o 4 -m 4  //switch to HDMI type
 
 If you switch to other resolution, you need to restart your X after the modification
 
@@ -503,8 +505,8 @@ The quickly way to test the interface of USB is plug the U disk . The system wil
 
 IR had beed add into the kernel .If not, use command to load the moudle:
 
-	$insmod /lib/modules/3.4.X/kernel/drivers/input/keyboard/sun4i-ir.ko
-	$sudo cat /dev/input/event0 | hexdump
+	$ insmod /lib/modules/3.4.X/kernel/drivers/input/keyboard/sun4i-ir.ko
+	$ sudo cat /dev/input/event0 | hexdump
 
 Press the key of IR remote control,the terminal will print the message as:
 
@@ -519,7 +521,7 @@ The digital `0094` is keycode of the remote control .
 
 There are two audio devices HDMI and headphone in the cubieboard.
 
-	$sudo  alsamixer
+	$ sudo alsamixer
 
 There are two audio devices named sunxi-sndhdmi and sunxi-CODEC in the system. The sound output is send out from HDMI by default . You can adjust volume and other configuration ,use `Ctrl-Z` to save it.
 
@@ -539,22 +541,22 @@ To set sound care being sunxi-CODEC modify `/etc/asound.conf` to turn on the hea
 
 If Plug in the headphone and type:
 
-	$speaker-test -twav -c2
+	$ speaker-test -twav -c2
 
 The sound "sound left，sound right，sound left" will output from headphone.
 
 Let cubieboard speak by package named espeak :
 
-	$sudo apt-get install espeak
-	$espeak "hello"　　           //say: hello
-	$espeak "hello cubieboard"　　//say: hello cubieboard
+	$ sudo apt-get install espeak
+	$ espeak "hello"　　           //say: hello
+	$ espeak "hello cubieboard"　　//say: hello cubieboard
 
 ### Camera
 
 Most of the camera driver has integrated in the kernel，so it is available insert usb-camera into the cubieboard.
 
-	$sudo apt-get install luvcview
-	$luvcview -s 1080x720 (can modify the resolution)
+	$ sudo apt-get install luvcview
+	$ luvcview -s 1080x720 (can modify the resolution)
 
 
 ## References:
