@@ -1,6 +1,6 @@
 <header class="header">
   <h1 class="title" title="{{ site.description | strip_html }}" >{{ site.title }}</h1>
-  <nav class="nav nav-bar">
+  <nav id="navbar" class="nav nav-bar">
     <a href="//lsong.org">home</a>
     {% for page in site.pages %}
     <a href="{{ page.url | prepend: site.baseurl }}" title="{{ page.description | strip_html }}">{{ page.title }}</a>

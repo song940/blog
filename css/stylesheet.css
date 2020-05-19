@@ -1,32 +1,5 @@
 @import "highlight.css";
-
-.container {
-  width: 80%;
-  margin: auto;
-  font-family: monospace;
-}
-
-.header {
-  line-height: 48px;
-  border-bottom: 1px solid #efefef;
-}
-
-.header h1 {
-  margin: 0;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.nav {
-  float: right;
-  line-height: inherit;
-}
-
-.nav a {
-  color: #666;
-  text-decoration: none;
-  font-family: monospace;
-}
+@import "//lsong.org/css/stylesheet.css";
 
 .posts {
   font-size: 20px;
@@ -42,17 +15,23 @@
   text-decoration: none;
 }
 
-.nav a:hover, .posts li a:hover {
+.posts li a:hover {
   color: green;
   text-decoration: underline;
 }
 
-.post h1, .post h2, .post h3, .post h4, .post h5, .post h6 {
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
   font-weight: bold;
   font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
 }
 
-.post ul, .post ol {
+.post ol,
+.post ul {
   padding: 0;
   margin-left: 1.35em;
 }
@@ -67,6 +46,12 @@
   width: 100%;
 }
 
+.post-content blockquote {
+  margin: 0;
+  padding-left: 10px;
+  border-left: 2px solid #ccc;
+}
+
 .comments {
   text-align: center;
 }
@@ -78,35 +63,16 @@
 .player {
   max-width: 500px;
 }
-
-footer {
-  padding: 10px 0;
-}
-
-blockquote {
-  margin: 0;
-  padding-left: 10px;
-  border-left: 2px solid #ccc;
-}
-
 @media screen and (max-width: 768px) {
-  .container {
-    width: 90%;
-  }
-  .header, .footer {
-    text-align: center;
-  }
   .title {
     display: block;
   }
-  .nav {
-    float: none;
-    display: block;
-  }
+
   .posts {
     font-size: 14px;
     padding-left: 15px;
   }
+
   .posts .post-date {
     display: none;
   }
