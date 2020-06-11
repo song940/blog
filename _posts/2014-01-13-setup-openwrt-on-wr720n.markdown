@@ -6,22 +6,33 @@ comments: true
 categories: blog
 ---
 
-![](/img/openWRT_logo.png)
 
-## 准备工作
+## First Install OpenWRT
 
-*   网线一根
-*   工作平台
-
-<!--more-->
-
-## 下载 OpenWRT 安装包
-
+Download [openwrt-17.01.5-ar71xx-generic-tl-wr720n-v3-squashfs-factory.bin](http://downloads.openwrt.org/releases/17.01.5/targets/ar71xx/generic/openwrt-17.01.5-ar71xx-generic-tl-wr720n-v3-squashfs-factory.bin) 
 到 [OpenWrt][1] 下载 [适合WR720N的安装包][2]
 
-打开WR720N 的系统管理界面 , 上传安装包 , 等待上传完成 , 系统自动完成升级过程
+and upload to admin dashboard - upgrade page. 
+打开WR720N 的系统管理界面 , 上传安装包
 
-## 首次登陆
+That'll auto reboot when complete.
+等待上传完成 , 系统自动完成升级过程
+
+## Replace Flash to 16M
+
+将 Flash Chip 装入编程器，使用编程工具将固件写入芯片。
+
+使用热风枪加热外壳并使用美工刀沿缝隙切开，取下主板
+
+找到 Flash Chip 的位置，在锡纸中间挖洞，漏出芯片
+
+热风枪开到300摄氏度左右，使用芯片拔出器或者镊子取下
+
+用洗板水清理主板焊盘，换上 16M Flash Chip 热风枪回流
+
+清理主板，在外壳边缘涂上少量胶水装好外壳。
+
+## First Login
 
 完成后将本机与WR720N 的 WAN/LAN 用网线连接 , 网络设置为 `192.168.1.1` ,然后使用 `Telnet` 登录 `telnet 192.168.1.1`
 
@@ -125,18 +136,6 @@ config wifi-iface
     option encryption 'psk-mixed'   #加密方法
     option key 'song940@163.com'    #密码
 ```
-
-### SmartHosts
-
-使用 `ssh root@192.168.1.1` 登陆
-
-`wget http://static.lsong.org/files/hosts`
-
-将 `HOSTS` 追加到 `/etc/hosts`
-
-`cat hosts >> /etc/hosts`
-
-现在应该可以打开 [YouTube][3] 了.
 
 ### Boot from usb
 
